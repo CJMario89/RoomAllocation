@@ -12,6 +12,19 @@ const RoomAllocation = (props) => {
         const roomStatesInit = [];
         for(let i = 0; i < props.room; i++){
             const key = uuidv4();
+            let roomMax = guest;
+            let disabled = false;
+            for(let j = 0; j < props.room; j++){
+                if(i != j){
+                    roomMax -= 1;//roomMax -= total(1)
+                }
+            }
+            if(roomMax > defaultRoomMax){
+                roomMax = defaultRoomMax;
+            }
+            if(roomMax === 1){//roomMax === total
+                disabled = true;
+            }
             const roomState = {
                 "key": key,
                 "adult": 1,
@@ -20,9 +33,10 @@ const RoomAllocation = (props) => {
                 "childMin": 0,
                 "adultMin": 1,
                 "min": 1,
-                "childMax": defaultRoomMax - 1,
-                "adultMax": defaultRoomMax,
-                "max": defaultRoomMax,
+                "childMax": roomMax - 1,
+                "adultMax": roomMax,
+                "max": roomMax,
+                "disabled": disabled
             }
             roomStatesInit.push(roomState);
             
@@ -86,7 +100,7 @@ const RoomAllocation = (props) => {
             mounted.current = true;
         }
 
-        
+
         //set remain guest
         setRemainGuest(() => roomStates.reduce((previous, current) => previous - current.total, guest));
 
@@ -112,11 +126,11 @@ const RoomAllocation = (props) => {
                 </div>
                 <div className="roomStatisticsAdult">
                     <div>大人</div>
-                    <CustomInputNumber min={roomStates[i].adultMin} max={roomStates[i].adultMax} step={1} name={"adult"} value={roomStates[i].adult} disabled={false} onChange={onCustomInputNumberChange} onBlur={onBlur} dataKey={roomStates[i].key} />
+                    <CustomInputNumber min={roomStates[i].adultMin} max={roomStates[i].adultMax} step={1} name={"adult"} value={roomStates[i].adult} disabled={roomStates[i].disabled} onChange={onCustomInputNumberChange} onBlur={onBlur} dataKey={roomStates[i].key} />
                 </div>
                 <div className="roomStatisticsChild">
                     <div className=''>小孩</div>
-                    <CustomInputNumber min={roomStates[i].childMin} max={roomStates[i].childMax} step={1} name={"child"} value={roomStates[i].child} disabled={false} onChange={onCustomInputNumberChange} onBlur={onBlur} dataKey={roomStates[i].key} />
+                    <CustomInputNumber min={roomStates[i].childMin} max={roomStates[i].childMax} step={1} name={"child"} value={roomStates[i].child} disabled={roomStates[i].disabled} onChange={onCustomInputNumberChange} onBlur={onBlur} dataKey={roomStates[i].key} />
                 </div>
             </div>
         )
