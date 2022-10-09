@@ -1,0 +1,79 @@
+.totalRoomContainer{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+    width: 360px;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    border: 1px black dashed;
+    padding: 10px 5px;
+}
+.totalRoomStatistics{
+    position: relative;
+    display: block;
+    margin: 15px;
+    margin-top: 5px;
+    font-size: 18px;
+}
+.remainStatistics{
+    position: relative;
+    display: block;
+    width: calc(100% - 80px);
+    margin: 0 auto;
+    padding: 15px 20px;
+    border: 1px rgba(210, 240, 250) solid;
+    border-radius: 5px;
+    background-color: rgba(210, 240, 250, 0.2);
+    color: gray;
+}
+
+
+.roomStatistics{
+    position: relative;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.roomStatisticsTotal{
+    position: relative;
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 18px;
+
+
+}
+
+.roomStatisticsAdult{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-start;
+    width: 100%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+
+    &::before{
+        content: "年齡 20+";
+        position: absolute;
+        top: 28px;
+        font-size: 14px;
+        color: gray;
+    }
+}
+
+.roomStatisticsChild{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-start;
+    width: 100%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
