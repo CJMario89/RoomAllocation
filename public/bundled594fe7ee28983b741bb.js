@@ -75,14 +75,19 @@ var CustomInputNumber = function CustomInputNumber(props) {
 
   var inputIntegerFilter = function inputIntegerFilter(e) {
     if (/^\d+$/.test(e.target.value) && Number(e.target.value) >= min && Number(e.target.value) <= max) {
-      preValue.current = Number(e.target.value);
-      e.target.value = Number(e.target.value);
-      onChange(e, dataKey);
+      if (preValue.current !== Number(e.target.value)) {
+        preValue.current = Number(e.target.value);
+        e.target.value = Number(e.target.value);
+        onChange(e, dataKey);
+      } else {
+        preValue.current = Number(e.target.value);
+        e.target.value = Number(e.target.value);
+      }
     } else if (e.target.value === "") {
       //backspace
       e.target.value = min;
 
-      if (preValue.current !== min) {
+      if (preValue.current != min) {
         preValue.current = min;
         onChange(e, dataKey);
       }
@@ -264,6 +269,24 @@ var RoomAllocation = function RoomAllocation(props) {
 
     for (var i = 0; i < props.room; i++) {
       var key = (0,uuid__WEBPACK_IMPORTED_MODULE_8__["default"])();
+      var roomMax = guest;
+      var disabled = false;
+
+      for (var j = 0; j < props.room; j++) {
+        if (i != j) {
+          roomMax -= 1; //roomMax -= total(1)
+        }
+      }
+
+      if (roomMax > defaultRoomMax) {
+        roomMax = defaultRoomMax;
+      }
+
+      if (roomMax === 1) {
+        //roomMax === total
+        disabled = true;
+      }
+
       var roomState = {
         "key": key,
         "adult": 1,
@@ -272,9 +295,10 @@ var RoomAllocation = function RoomAllocation(props) {
         "childMin": 0,
         "adultMin": 1,
         "min": 1,
-        "childMax": defaultRoomMax - 1,
-        "adultMax": defaultRoomMax,
-        "max": defaultRoomMax
+        "childMax": roomMax - 1,
+        "adultMax": roomMax,
+        "max": roomMax,
+        "disabled": disabled
       };
       roomStatesInit.push(roomState);
     }
@@ -381,7 +405,7 @@ var RoomAllocation = function RoomAllocation(props) {
       step: 1,
       name: "adult",
       value: roomStates[i].adult,
-      disabled: false,
+      disabled: roomStates[i].disabled,
       onChange: onCustomInputNumberChange,
       onBlur: onBlur,
       dataKey: roomStates[i].key
@@ -395,7 +419,7 @@ var RoomAllocation = function RoomAllocation(props) {
       step: 1,
       name: "child",
       value: roomStates[i].child,
-      disabled: false,
+      disabled: roomStates[i].disabled,
       onChange: onCustomInputNumberChange,
       onBlur: onBlur,
       dataKey: roomStates[i].key
@@ -40083,4 +40107,4 @@ root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createEle
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle61f2fb6742a18384c155.js.map
+//# sourceMappingURL=bundled594fe7ee28983b741bb.js.map

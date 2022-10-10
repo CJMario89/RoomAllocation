@@ -13,13 +13,18 @@ const CustomInputNumber = (props) => {
     //change by user input
     const inputIntegerFilter = (e) => {
         if(/^\d+$/.test(e.target.value) && Number(e.target.value) >= min && Number(e.target.value) <= max){
-            preValue.current = Number(e.target.value);
-            e.target.value = Number(e.target.value);
-            onChange(e, dataKey);
+            if(preValue.current !== Number(e.target.value)){
+                preValue.current = Number(e.target.value);
+                e.target.value = Number(e.target.value);
+                onChange(e, dataKey);
+            }else{
+                preValue.current = Number(e.target.value);
+                e.target.value = Number(e.target.value);
+            }
         }else if(e.target.value === ""){
             //backspace
             e.target.value = min;
-            if(preValue.current !== min){
+            if(preValue.current != min){
                 preValue.current = min;
                 onChange(e, dataKey);
             }
