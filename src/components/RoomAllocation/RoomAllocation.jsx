@@ -62,8 +62,6 @@ const RoomAllocation = (props) => {
 
         //e.target.value(child or adult) affect total and all rooms' max
         //total
-        console.log(e.target.name)
-        console.log(e.target.value)
         copyRoomStates[index]["total"] = copyRoomStates[index]["child"] + copyRoomStates[index]["adult"];
 
         //all rooms' max

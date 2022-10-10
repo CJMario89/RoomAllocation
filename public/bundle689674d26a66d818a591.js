@@ -330,8 +330,6 @@ var RoomAllocation = function RoomAllocation(props) {
     copyRoomStates[index][e.target.name] = Number(e.target.value); //e.target.value(child or adult) affect total and all rooms' max
     //total
 
-    console.log(e.target.name);
-    console.log(e.target.value);
     copyRoomStates[index]["total"] = copyRoomStates[index]["child"] + copyRoomStates[index]["adult"]; //all rooms' max
 
     for (var i = 0; i < copyRoomStates.length; i++) {
@@ -40107,4 +40105,4 @@ root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createEle
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle42b34131bb39dabd2a54.js.map
+//# sourceMappingURL=bundle689674d26a66d818a591.js.map
